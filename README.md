@@ -1,7 +1,7 @@
 # 🎨 Colors Hub
 
 <p align="center">
-  <img src="screenshot/demo.png" alt="Colors Hub Demo" width="900">
+  <img src="screenshots/demo.png" alt="Colors Hub Demo" width="900">
 </p>
 
 **Colors Hub** — A live color picker with instant conversion to 20+ developer-friendly color formats.
