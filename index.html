@@ -1,0 +1,459 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Colors Hub - Developed By Rafid</title>
+    <meta name="description"
+        content="Colors Hub is a single codebase to get all types of color codes like hex, rgb, hsl, cmyk, and more. It helps developers to configure and switch color formats. Developed by Rafid." />
+    <meta property="author" content="@rafidahmed870" />
+
+    <!-- Google Fonts Poppins & FontAwesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+    <!-- ===== HEADER ===== -->
+    <header class="site-header">
+        <div class="header-inner">
+            <div class="header-brand">
+                <div class="brand-icon">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+                </div>
+                <div>
+                    <h1 class="brand-title">Colors Hub</h1>
+                    <p class="brand-subtitle">Developed by Rafid</p>
+                </div>
+            </div>
+
+            <div class="header-preview">
+                <div class="preview-box">
+                    <span class="preview-swatch alpha-container">
+                        <span id="headerColorPreview" class="preview-fill"></span>
+                    </span>
+                    <span id="headerColorHex" class="preview-hex">#6366F1</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ===== MAIN ===== -->
+    <main class="site-main">
+        <!-- Color Picker -->
+        <section class="card picker-card">
+            <h2 class="section-label">
+                <i class="fa-solid fa-eye-dropper"></i> Color Picker
+            </h2>
+
+            <div class="picker-grid">
+                <!-- Canvas + preview -->
+                <div class="picker-canvas-wrap">
+                    <div class="canvas-container">
+                        <div class="canvas-preview alpha-container">
+                            <div id="largeColorDisplay" class="canvas-preview-fill"></div>
+                        </div>
+                        <div class="canvas-box">
+                            <canvas id="colorBox" class="color-canvas"></canvas>
+                            <div id="boxCursor" class="box-cursor">
+                                <div class="box-cursor-ring"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sliders -->
+                <div class="picker-controls">
+                    <!-- Hue -->
+                    <div class="slider-group">
+                        <div class="slider-label">
+                            <span class="slider-label-text">Spectrum (Hue)</span>
+                            <span class="slider-value" id="hueVal">239°</span>
+                        </div>
+                        <div class="slider-track-wrap">
+                            <input type="range" id="hueSlider" min="0" max="360" value="239"
+                                class="slider-input hue-slider" />
+                        </div>
+                    </div>
+
+                    <!-- Alpha -->
+                    <div class="slider-group">
+                        <div class="slider-label">
+                            <span class="slider-label-text">Opacity (Alpha)</span>
+                            <span class="slider-value" id="alphaVal">1.00</span>
+                        </div>
+                        <div class="slider-track-wrap alpha-track-wrap">
+                            <div class="alpha-track-bg alpha-container">
+                                <div id="alphaGradientTrack" class="alpha-track-fill"></div>
+                                <input type="range" id="alphaSlider" min="0" max="100" value="100"
+                                    class="slider-input alpha-slider" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="picker-hint">
+                        <i class="fa-solid fa-circle-info"></i>
+                        <strong>Live Syncing:</strong> You can edit any input text box
+                        below directly to adjust coordinates.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== FORMAT COLUMNS ===== -->
+        <section class="formats-grid">
+            <!-- Column 1: Web & Frontend -->
+            <div class="card format-col">
+                <div class="format-col-header">
+                    <div class="format-col-icon web-icon">
+                        <i class="fa-solid fa-globe"></i>
+                    </div>
+                    <div>
+                        <h2 class="format-col-title">Web &amp; Frontend</h2>
+                        <p class="format-col-subtitle">Standard browser integrations</p>
+                    </div>
+                </div>
+
+                <div class="format-fields">
+                    <!-- HEX -->
+                    <div class="field-group">
+                        <label class="field-label">Hexadecimal</label>
+                        <div class="field-input-wrap">
+                            <span class="field-prefix">HEX</span>
+                            <input type="text" id="inputHex" class="field-input"
+                                oninput="handleInputEdit('hex', this.value, 'inputHex')" />
+                            <button onclick="copyToClipboard('inputHex', 'HEX Copied!')" class="copy-btn" title="Copy">
+                                <i class="fa-regular fa-copy"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- RGB -->
+                    <div class="field-group">
+                        <label class="field-label">RGB Format</label>
+                        <div class="field-input-wrap">
+                            <span class="field-prefix">RGB</span>
+                            <input type="text" id="inputRgb" class="field-input"
+                                oninput="handleInputEdit('rgb', this.value, 'inputRgb')" />
+                            <button onclick="copyToClipboard('inputRgb', 'RGB Copied!')" class="copy-btn" title="Copy">
+                                <i class="fa-regular fa-copy"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- RGBA -->
+                    <div class="field-group">
+                        <label class="field-label">RGBA Format</label>
+                        <div class="field-input-wrap">
+                            <span class="field-prefix">RGBA</span>
+                            <input type="text" id="inputRgba" class="field-input"
+                                oninput="handleInputEdit('rgba', this.value, 'inputRgba')" />
+                            <button onclick="copyToClipboard('inputRgba', 'RGBA Copied!')" class="copy-btn"
+                                title="Copy">
+                                <i class="fa-regular fa-copy"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- HSL -->
+                    <div class="field-group">
+                        <label class="field-label">HSL Format</label>
+                        <div class="field-input-wrap">
+                            <span class="field-prefix">HSL</span>
+                            <input type="text" id="inputHsl" class="field-input"
+                                oninput="handleInputEdit('hsl', this.value, 'inputHsl')" />
+                            <button onclick="copyToClipboard('inputHsl', 'HSL Copied!')" class="copy-btn" title="Copy">
+                                <i class="fa-regular fa-copy"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- HSLA -->
+                    <div class="field-group">
+                        <label class="field-label">HSLA Format</label>
+                        <div class="field-input-wrap">
+                            <span class="field-prefix">HSLA</span>
+                            <input type="text" id="inputHsla" class="field-input"
+                                oninput="handleInputEdit('hsla', this.value, 'inputHsla')" />
+                            <button onclick="copyToClipboard('inputHsla', 'HSLA Copied!')" class="copy-btn"
+                                title="Copy">
+                                <i class="fa-regular fa-copy"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- OKLCH -->
+                    <div class="field-group">
+                        <label class="field-label">OKLCH Format</label>
+                        <div class="field-input-wrap">
+                            <span class="field-prefix">OKLCH</span>
+                            <input type="text" id="inputOklch" class="field-input"
+                                oninput="handleInputEdit('oklch', this.value, 'inputOklch')" />
+                            <button onclick="copyToClipboard('inputOklch', 'OKLCH Copied!')" class="copy-btn"
+                                title="Copy">
+                                <i class="fa-regular fa-copy"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- CMYK -->
+                    <div class="field-group">
+                        <label class="field-label">CMYK Format (Print)</label>
+                        <div class="field-input-wrap">
+                            <span class="field-prefix">CMYK</span>
+                            <input type="text" id="inputCmyk" class="field-input"
+                                oninput="handleInputEdit('cmyk', this.value, 'inputCmyk')" />
+                            <button onclick="copyToClipboard('inputCmyk', 'CMYK Copied!')" class="copy-btn"
+                                title="Copy">
+                                <i class="fa-regular fa-copy"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Column 2: Software & Game Engines -->
+            <div class="card format-col">
+                <div class="format-col-header">
+                    <div class="format-col-icon game-icon">
+                        <i class="fa-solid fa-gamepad"></i>
+                    </div>
+                    <div>
+                        <h2 class="format-col-title">Software UI &amp; Games</h2>
+                        <p class="format-col-subtitle">
+                            Frameworks &amp; graphics configs
+                        </p>
+                    </div>
+                </div>
+
+                <div class="format-fields">
+                    <!-- ImGui ImColor -->
+                    <div class="field-group">
+                        <label class="field-label">Dear ImGui ImColor</label>
+                        <div class="field-input-wrap">
+                            <input type="text" id="inputImColor" class="field-input" oninput="
+                    handleInputEdit('imcolor', this.value, 'inputImColor')
+                  " />
+                            <button onclick="copyToClipboard('inputImColor', 'ImColor Copied!')" class="copy-btn"
+                                title="Copy">
+                                <i class="fa-regular fa-copy"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- ImGui ImVec4 -->
+                    <div class="field-group">
+                        <label class="field-label">Dear ImGui ImVec4</label>
+                        <div class="field-input-wrap">
+                            <input type="text" id="inputImVec4" class="field-input"
+                                oninput="handleInputEdit('imvec4', this.value, 'inputImVec4')" />
+                            <button onclick="copyToClipboard('inputImVec4', 'ImVec4 Copied!')" class="copy-btn"
+                                title="Copy">
+                                <i class="fa-regular fa-copy"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- ImGui ImVec3 -->
+                    <div class="field-group">
+                        <label class="field-label">Dear ImGui ImVec3</label>
+                        <div class="field-input-wrap">
+                            <input type="text" id="inputImVec3" class="field-input"
+                                oninput="handleInputEdit('imvec3', this.value, 'inputImVec3')" />
+                            <button onclick="copyToClipboard('inputImVec3', 'ImVec3 Copied!')" class="copy-btn"
+                                title="Copy">
+                                <i class="fa-regular fa-copy"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Unity -->
+                    <div class="field-group">
+                        <label class="field-label">Unity C# Color</label>
+                        <div class="field-input-wrap">
+                            <input type="text" id="inputUnity" class="field-input"
+                                oninput="handleInputEdit('unity', this.value, 'inputUnity')" />
+                            <button onclick="copyToClipboard('inputUnity', 'Unity Color Copied!')" class="copy-btn"
+                                title="Copy">
+                                <i class="fa-regular fa-copy"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Flutter -->
+                    <div class="field-group">
+                        <label class="field-label">Flutter Dart Color</label>
+                        <div class="field-input-wrap">
+                            <input type="text" id="inputFlutter" class="field-input" oninput="
+                    handleInputEdit('flutter', this.value, 'inputFlutter')
+                  " />
+                            <button onclick="
+                    copyToClipboard('inputFlutter', 'Flutter Color Copied!')
+                  " class="copy-btn" title="Copy">
+                                <i class="fa-regular fa-copy"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Swift -->
+                    <div class="field-group">
+                        <label class="field-label">Swift UIKit UIColor</label>
+                        <div class="field-input-wrap">
+                            <input type="text" id="inputSwift" class="field-input"
+                                oninput="handleInputEdit('swift', this.value, 'inputSwift')" />
+                            <button onclick="copyToClipboard('inputSwift', 'Swift Color Copied!')" class="copy-btn"
+                                title="Copy">
+                                <i class="fa-regular fa-copy"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Android Java -->
+                    <div class="field-group">
+                        <label class="field-label">Android Java Color</label>
+                        <div class="field-input-wrap">
+                            <input type="text" id="inputJava" class="field-input"
+                                oninput="handleInputEdit('java', this.value, 'inputJava')" />
+                            <button onclick="
+                    copyToClipboard('inputJava', 'Android Color Copied!')
+                  " class="copy-btn" title="Copy">
+                                <i class="fa-regular fa-copy"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Column 3: Terminals & Hardware -->
+            <div class="card format-col">
+                <div class="format-col-header">
+                    <div class="format-col-icon term-icon">
+                        <i class="fa-solid fa-terminal"></i>
+                    </div>
+                    <div>
+                        <h2 class="format-col-title">Terminal CLI &amp; Hardware</h2>
+                        <p class="format-col-subtitle">
+                            ANSI esc codes &amp; LCD drivers
+                        </p>
+                    </div>
+                </div>
+
+                <div class="format-fields">
+                    <!-- ANSI FG -->
+                    <div class="field-group">
+                        <label class="field-label">ANSI Truecolor Foreground</label>
+                        <div class="field-input-wrap">
+                            <input type="text" id="inputAnsiFg" class="field-input"
+                                oninput="handleInputEdit('ansifg', this.value, 'inputAnsiFg')" />
+                            <button onclick="copyToClipboard('inputAnsiFg', 'ANSI FG Copied!')" class="copy-btn"
+                                title="Copy">
+                                <i class="fa-regular fa-copy"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- ANSI BG -->
+                    <div class="field-group">
+                        <label class="field-label">ANSI Truecolor Background</label>
+                        <div class="field-input-wrap">
+                            <input type="text" id="inputAnsiBg" class="field-input"
+                                oninput="handleInputEdit('ansibg', this.value, 'inputAnsiBg')" />
+                            <button onclick="copyToClipboard('inputAnsiBg', 'ANSI BG Copied!')" class="copy-btn"
+                                title="Copy">
+                                <i class="fa-regular fa-copy"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- ANSI 256 -->
+                    <div class="field-group">
+                        <label class="field-label">ANSI 256 Index Equivalent</label>
+                        <div class="field-input-wrap">
+                            <input type="text" id="inputAnsi256" class="field-input" oninput="
+                    handleInputEdit('ansi256', this.value, 'inputAnsi256')
+                  " />
+                            <button onclick="
+                    copyToClipboard('inputAnsi256', 'ANSI 256 Index Copied!')
+                  " class="copy-btn" title="Copy">
+                                <i class="fa-regular fa-copy"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- RGB565 -->
+                    <div class="field-group">
+                        <label class="field-label">Embedded RGB565 (16-bit Hex)</label>
+                        <div class="field-input-wrap">
+                            <input type="text" id="inputRgb565" class="field-input"
+                                oninput="handleInputEdit('rgb565', this.value, 'inputRgb565')" />
+                            <button onclick="copyToClipboard('inputRgb565', 'RGB565 Hex Copied!')" class="copy-btn"
+                                title="Copy">
+                                <i class="fa-regular fa-copy"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== GITHUB CARD ===== -->
+        <section class="card github-card">
+            <div class="github-inner">
+                <div class="github-profile">
+                    <div class="github-avatar">
+                        <img id="githubAvatar" src="https://github.com/rafidahmed870.png" alt="@rafidahmed870" onerror="
+                  this.src = 'https://placehold.co/150/f1f5f9/475569?text=Rafid'
+                " />
+                    </div>
+                    <div class="github-info">
+                        <h3 class="github-name">
+                            Rafid Ahmed
+                            <span class="github-handle">@rafidahmed870</span>
+                        </h3>
+                        <p class="github-bio">
+                            Full Stack Developer, Experience in MERN Stack Development.
+                        </p>
+                        <div class="github-stats">
+                            <span><i class="fa-solid fa-star"></i><span id="repoStars">--</span> Stars</span>
+                            <span><i class="fa-solid fa-code-fork"></i><span id="repoForks">--</span> Forks</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="github-actions">
+                    <a href="https://github.com/rafidahmed870" target="_blank" rel="noopener noreferrer"
+                        class="btn btn-outline">
+                        <i class="fa-brands fa-github"></i> Developer Profile
+                    </a>
+                    <a href="https://github.com/rafidahmed870/colors-hub" target="_blank" rel="noopener noreferrer"
+                        class="btn btn-outline">
+                        <i class="fa-solid fa-star"></i> Star colors-hub
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="site-footer">
+        <p>
+            &copy; 2026 Colors Hub. All Rights Reserved. Developed By Rafid Ahmed.
+        </p>
+    </footer>
+
+    <!-- ===== TOAST ===== -->
+    <div id="toast" class="toast">
+        <i class="fa-solid fa-circle-check"></i>
+        <span id="toastMessage">Copied!</span>
+    </div>
+
+    <!-- ===== SCRIPTS ===== -->
+    <script src="scripts.js"></script>
+</body>
+
+</html>
