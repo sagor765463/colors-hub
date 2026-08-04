@@ -9,7 +9,7 @@ const state = {
 };
 
 // ============================================================
-// DOM REFS
+// DOM REFSxx
 // ============================================================
 const canvas = document.getElementById("colorBox");
 const ctx = canvas.getContext("2d");
